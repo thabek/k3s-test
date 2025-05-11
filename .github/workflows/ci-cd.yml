@@ -31,9 +31,9 @@ jobs:
       - name: Zapisz kubeconfig do pliku
         run: |
           mkdir -p ~/.kube
-          printf "%s" "${RAW_KUBECONFIG}" > ~/.kube/config
-        env:
-          RAW_KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          cat <<EOF > ~/.kube/config
+          ${{ secrets.KUBECONFIG }}
+          EOF
 
       - name: Test połączenia z klastrem
         env:

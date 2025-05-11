@@ -28,10 +28,12 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/php-app:latest
 
-      - name: Ustaw kubeconfig
+      - name: Zapisz kubeconfig do pliku
         run: |
           mkdir -p ~/.kube
-          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+          printf "%s" "${KUBECONFIG}" > ~/.kube/config
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
       - name: Deploy to K3s
         run: |

@@ -1,4 +1,4 @@
-name: Build and Deploy PHP App
+name: Build and Deploy PHP App to K3s
 
 on:
   push:
@@ -32,15 +32,8 @@ jobs:
         run: |
           mkdir -p ~/.kube
           cat <<EOF > ~/.kube/config
-      ${{ secrets.KUBECONFIG }}
-      EOF
-
-      - name: Test połączenia z klastrem
-        env:
-          KUBECONFIG: ~/.kube/config
-        run: |
-          kubectl get nodes
-          kubectl cluster-info
+          ${{ secrets.KUBECONFIG }}
+          EOF
 
       - name: Deploy to K3s
         env:

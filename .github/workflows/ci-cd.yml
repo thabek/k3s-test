@@ -23,14 +23,14 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/php-app:latest
       - name: Render kubeconfig
         run: |
-          envsubst < .github/workflows/kubeconfig.template.yaml > kubeconfig.yaml
+          envsubst < .k8s/kubeconfig.template.yaml > kubeconfig.yaml
         env:
           K8S_SERVER: ${{ secrets.K8S_SERVER }}
           K8S_TOKEN: ${{ secrets.K8S_TOKEN }}
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply --validate=false -f k8s/deployment.yaml
-          kubectl apply --validate=false -f k8s/service.yaml
+          kubectl apply --validate=false -f .k8s/deployment.yaml
+          kubectl apply --validate=false -f .k8s/service.yaml
         env:
           KUBECONFIG: kubeconfig.yaml

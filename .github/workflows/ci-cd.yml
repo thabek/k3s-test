@@ -20,7 +20,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/php-app:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/php-app:${{ github.sha }}
       - name: Render kubeconfig
         run: |
           envsubst < .k8s/kubeconfig.template.yaml > kubeconfig.yaml
@@ -30,7 +30,8 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply --validate=false -f .k8s/deployment.yaml
-          kubectl apply --validate=false -f .k8s/service.yaml
+          kubectl set image deployment/php-app php-app=${{ secrets.DOCKER_USERNAME }}/php-app:${{ github.sha }}
+#          kubectl apply --validate=false -f .k8s/deployment.yaml
+#          kubectl apply --validate=false -f .k8s/service.yaml
         env:
           KUBECONFIG: kubeconfig.yaml

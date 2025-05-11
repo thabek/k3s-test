@@ -32,8 +32,8 @@ jobs:
         run: |
           mkdir -p ~/.kube
           cat <<EOF > ~/.kube/config
-          ${{ secrets.KUBECONFIG }}
-          EOF
+      ${{ secrets.KUBECONFIG }}
+      EOF
 
       - name: Test połączenia z klastrem
         env:

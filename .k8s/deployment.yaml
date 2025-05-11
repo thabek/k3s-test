@@ -15,5 +15,6 @@ spec:
       containers:
         - name: php-app
           image: yossek/php-app:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80

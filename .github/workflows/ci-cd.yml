@@ -23,7 +23,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/php-app:${{ github.sha }}
       - name: Render kubeconfig
         run: |
-          envsubst < .github/workflows/kubeconfig.template.yaml > kubeconfig.yaml
+          envsubst < .github/k3s/kubeconfig.template.yaml > kubeconfig.yaml
         env:
           K3S_SERVER: ${{ secrets.K3S_SERVER }}
           K3S_TOKEN: ${{ secrets.K3S_TOKEN }}

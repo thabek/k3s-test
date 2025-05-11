@@ -31,13 +31,12 @@ jobs:
       - name: Zapisz kubeconfig do pliku
         run: |
           mkdir -p ~/.kube
-          cat <<EOF > ~/.kube/config
-          ${{ secrets.KUBECONFIG }}
-          EOF
+          echo "${KUBE_CONFIG}" > ~/.kube/config
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
 
       - name: Deploy to K3s
-        env:
-          KUBECONFIG: ~/.kube/config
         run: |
+          export KUBECONFIG=~/.kube/config
           kubectl apply --validate=false -f k8s/deployment.yaml
           kubectl apply --validate=false -f k8s/service.yaml

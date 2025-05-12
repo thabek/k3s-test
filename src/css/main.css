@@ -93,7 +93,7 @@ a:hover {
 	align-self: center;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 700px) {
 	#animatedImage {
 		width: 200px;
 		align-self: center;

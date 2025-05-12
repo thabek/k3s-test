@@ -29,6 +29,11 @@ body {
 	flex-direction: column;
 }
 
+.logo {
+	display: flex;
+	justify-content: center;
+}
+
 .title {
 	display: flex;
 	flex-direction: row;
@@ -80,5 +85,17 @@ a:hover {
 @keyframes mymove {
 	100% {
 		transform: rotate(360deg);
+	}
+}
+
+#animatedImage {
+	width: 320px;
+	align-self: center;
+}
+
+@media only screen and (max-width: 400px) {
+	#animatedImage {
+		width: 200px;
+		align-self: center;
 	}
 }

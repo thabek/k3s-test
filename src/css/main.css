@@ -27,12 +27,6 @@ body {
 	flex-direction: column;
 }
 
-.logo {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}
-
 .title {
 	display: flex;
 	flex-direction: row;

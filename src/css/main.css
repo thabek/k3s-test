@@ -5,6 +5,8 @@
 	font-style: normal;
 	font-variation-settings:
 		"wdth" 100;
+	text-decoration: none;
+	color: black;
 }
 
 html,
@@ -33,6 +35,7 @@ body {
 	justify-content: space-between;
 	font-size: 10em;
 	line-height: 80%;
+	margin-top: 1.6rem;
 }
 
 .three {
@@ -48,11 +51,34 @@ body {
 	justify-content: space-between;
 }
 
-.email,
-.email>* {
-	text-decoration: none;
-	color: black;
-	font-weight: 200;
-	text-align: center;
-	margin-top: 2rem;
+.info {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 1rem;
+}
+
+.email {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.email>a {
+	font-weight: 300;
+}
+
+a:hover {
+	color: red;
+}
+
+#animatedImage {
+	animation: mymove 20s infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes mymove {
+	100% {
+		transform: rotate(360deg);
+	}
 }

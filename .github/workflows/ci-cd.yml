@@ -21,6 +21,15 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/php-app:${{ github.sha }}
+      - name: Validate env variables
+        run: |
+          if [ -z "$K3S_SERVER" ] || [ -z "$K3S_TOKEN" ]; then
+            echo "❌ K3S_SERVER or K3S_TOKEN is not set"
+            exit 1
+          fi
+        env:
+          K3S_SERVER: ${{ secrets.K3S_SERVER }}
+          K3S_TOKEN: ${{ secrets.K3S_TOKEN }}
       - name: Render kubeconfig
         run: |
           envsubst < .github/k3s/kubeconfig.template.yaml > kubeconfig.yaml
@@ -29,6 +38,11 @@ jobs:
           K3S_TOKEN: ${{ secrets.K3S_TOKEN }}
       - name: Debug kubeconfig
         run: cat kubeconfig.yaml
+      - name: Test Kubernetes access
+        run: |
+          kubectl --kubeconfig=kubeconfig.yaml get nodes
+        env:
+          KUBECONFIG: kubeconfig.yaml
       - name: Deploy to Kubernetes
         run: |
           kubectl set image deployment/php-app php-app=${{ secrets.DOCKER_USERNAME }}/php-app:${{ github.sha }}

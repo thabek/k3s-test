@@ -29,8 +29,6 @@ jobs:
           K3S_TOKEN: ${{ secrets.K3S_TOKEN }}
       - name: Debug kubeconfig
         run: cat kubeconfig.yaml
-      - name: Set kubeconfig
-        run: echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
       - name: Deploy to Kubernetes
         run: |
           kubectl set image deployment/php-app php-app=${{ secrets.DOCKER_USERNAME }}/php-app:${{ github.sha }}
